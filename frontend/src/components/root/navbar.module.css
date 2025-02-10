@@ -1,0 +1,6 @@
+.active{
+   color: red;
+}
+.navbar.trans {
+   background:transparent !important;  
+ }
