@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData, redirect, useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, redirect, useNavigate, useParams, Link } from "react-router-dom";
 import { CardContent, CardMedia, Typography, Box, Container, Button, Rating} from "@mui/material";
 import ReviewSection from "../components/doctorPage/reviewSection";
 import ReviewForm from "../components/doctorPage/reviewForm";
@@ -14,12 +14,10 @@ export default function DoctorPage() {
   const [reviewState, setReviewState] = useState("");
   const [rating, setRating] = useState(0); 
   const { doctorData, reviewData } = useLoaderData();
-
-
+  
   if (!doctorData) {
     return <NotFound />;
   }
-
 
   const reviews = Object.values(reviewData);
 
@@ -126,15 +124,17 @@ export default function DoctorPage() {
           </Box>
           
           <Button
-            variant="contained"
-            sx={{
-              backgroundColor: "secondary.main",
-              color: "white",
-              ":hover": { backgroundColor: "#01348e" },
-              marginTop: 1,
-            }}
+              onClick={()=>{window.location.href=params.id+"/contact"}}
+              to="contacts"
+              variant="contained"
+              sx={{
+                backgroundColor: "secondary.main",
+                color: "white",
+                ":hover": { backgroundColor: "#01348e" },
+                marginTop: 1,
+              }}
           >
-            Contact
+              Contact
           </Button>
 
 

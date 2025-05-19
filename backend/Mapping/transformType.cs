@@ -1,7 +1,5 @@
 ﻿using backend.Models;
-
 namespace backend;
-
 
 public static class transformType
 {
@@ -37,7 +35,9 @@ public static class transformType
             ClinicId=doctor.Clinic.Id,
             Description = doctor.Description,
             Rating = doctor.Rating,
-            numOfReviews = doctor.numOfReviews
+            numOfReviews = doctor.numOfReviews,
+            PhoneNumber = doctor.PhoneNumber,
+            Email = doctor.Email
         };
         return toDisplayDoctor;
     }
@@ -54,7 +54,9 @@ public static class transformType
             Clinic = clinicObj!,
             Description = doctor.Description,
             Rating = doctor.Rating,
-            numOfReviews = doctor.numOfReviews
+            numOfReviews = doctor.numOfReviews,
+            PhoneNumber = doctor.PhoneNumber,
+            Email = doctor.Email
         };
         return doctorEntity;
     }
@@ -63,7 +65,6 @@ public static class transformType
         SpecializationEntity? specializationEntity = dbContext.Specializations.Find(doctor.SpecializationId);
         ClinicEntity? clinicEntity = dbContext.Clinics.Find(doctor.ClinicId);
         DoctorEntity? oldDoctorEntity = dbContext.Doctors.Find(id);
-
         DoctorEntity doctorEntity = new DoctorEntity{
             Id=id,
             Name=doctor.Name,
@@ -75,8 +76,9 @@ public static class transformType
             Description = doctor.Description,
             Rating = oldDoctorEntity!.Rating,
             numOfReviews = oldDoctorEntity!.numOfReviews,
+            PhoneNumber = doctor.PhoneNumber,
+            Email = doctor.Email
         };
         return doctorEntity;
-    }
-    
+    }    
 }

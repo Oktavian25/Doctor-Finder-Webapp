@@ -64,7 +64,9 @@ export async function action({request,params}){
         image:data.get('image'),
         specializationId:data.get('specialization'),
         clinicId:data.get('clinic'),
-        description:data.get('description')
+        description:data.get('description'),
+        phoneNumber:data.get('phone'),
+        email:data.get('email'),
     }
 
     if(userdata !== null) token = userdata.token;

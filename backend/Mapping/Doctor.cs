@@ -16,6 +16,8 @@ public class Doctor
     public string? Description {get;set;}
     public int Rating {get;set;}
     public int numOfReviews{get;set;}
+    public string? PhoneNumber{get;set;}
+    public string? Email{get;set;}
 
 }
 

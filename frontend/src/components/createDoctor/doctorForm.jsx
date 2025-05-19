@@ -10,6 +10,8 @@ export default function DoctorForm({clinics, specializations}) {
         <StyledInput type="text" name="name" placeholder="Enter doctor's name"></StyledInput>
         <StyledInput type="number" min="20" max="100" name="age" placeholder="Enter your age"></StyledInput>
         <StyledInput type="text" name="location" placeholder="Enter doctor's location"></StyledInput>
+        <StyledInput type="text" name="phone" placeholder="Enter doctor's phone Number"></StyledInput>
+        <StyledInput type="text" name="email" placeholder="Enter doctor's email"></StyledInput>
         <StyledInput type="text" name="image" placeholder="Enter image link"></StyledInput>
         <StyledSelect name="specialization">
           <option value="" style={{"color":"red"}}>Select specialization</option>

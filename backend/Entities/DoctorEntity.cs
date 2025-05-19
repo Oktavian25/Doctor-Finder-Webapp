@@ -14,4 +14,6 @@ public class DoctorEntity
     public required string Description {get;set;}
     public required int Rating{get;set;} 
     public required int numOfReviews{get;set;}
+    public required string PhoneNumber{get;set;}
+    public required string Email{get;set;}
 }

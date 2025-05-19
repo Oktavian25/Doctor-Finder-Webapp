@@ -8,6 +8,7 @@ import {loader as DoctorPageLoader} from './pages/doctorPage';
 import {loader as DashboardLoader} from './pages/dashboard';
 import {loader as EditDoctorLoader} from './pages/editDoctor';
 import {loader as ClinicPageLoader} from './pages/clinicPage';
+import {loader as ContactPageLoader} from './pages/contactDoctorPage'
 
 import {action as doctorAction} from './pages/createDoctor';
 import {action as reviewAction} from './pages/doctorPage'
@@ -28,6 +29,7 @@ import Settings from './pages/settings';
 import EditDoctor from './pages/editDoctor';
 import NotFound from './pages/NotFound';
 import ClinicPage from './pages/clinicPage';
+import ContactDoctorPage from './pages/contactDoctorPage';
 
 function App() {
 
@@ -56,6 +58,11 @@ function App() {
           element: <DoctorPage></DoctorPage>,
           loader: DoctorPageLoader,
           action: reviewAction
+        },
+        {
+          path:"doctors/:id/contact",
+          element: <ContactDoctorPage></ContactDoctorPage>,
+          loader: ContactPageLoader
         },
         {
           path:"editdoctor/:id",
@@ -114,7 +121,7 @@ function App() {
   
   return (
     <>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </>
   );
 }

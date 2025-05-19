@@ -35,18 +35,15 @@ function DoctorsList({ doctors,clinics }) {
   };
 
   useEffect(() => {
-    // Get search params from URL
     const params = new URLSearchParams(location.search);
     const nameParam = params.get('name') || '';
     const locationParam = params.get('location') || '';
     const specializationParam = params.get('specialization') || '';
 
-    // Set the search states
     setNameSearchQuery(nameParam);
     setLocationSearchQuery(locationParam);
     setSpecializationSearchQuery(specializationParam);
 
-    // Apply initial filtering
     const filtered = doctors.filter((doctor) =>
       doctor.name.toLowerCase().includes(nameParam.toLowerCase()) &&
       doctor.location.toLowerCase().includes(locationParam.toLowerCase()) &&
@@ -72,7 +69,7 @@ function DoctorsList({ doctors,clinics }) {
           sx={{ m: 2 }}
         />
 
-        {/* Search Bar */}      
+   
         <Search setPage={setPage}/>
 
         {/* Doctors List */}

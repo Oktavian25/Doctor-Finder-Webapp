@@ -11,6 +11,8 @@ export default function DoctorEditForm({clinics, specializations,doctor}) {
   const [image,setImage] = useState(doctor.image);
   const [specializationId, setSpecializationId] = useState(doctor.specializationId);
   const [description, setDescription] = useState(doctor.description);
+  const [phoneNumber,setPhoneNumber] = useState(doctor.phoneNumber);
+  const [email,setEmail] = useState(doctor.email);
  
   const handleImageChange = (e) => {
     setImage(snp=>snp=e.target.value)
@@ -30,6 +32,12 @@ export default function DoctorEditForm({clinics, specializations,doctor}) {
   const handleSpecizalizationChange = (e) => {
     setSpecializationId(snp=>snp=e.target.value);
   }
+  const handlePhoneNumberChange = (e) => {
+    setPhoneNumber(snp=>snp=e.target.value);
+  }
+  const handleEmailChange = (e) => {
+    setEmail(snp=>snp=e.target.value);
+  }
 
   return (
     <Box sx={{display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
@@ -38,6 +46,8 @@ export default function DoctorEditForm({clinics, specializations,doctor}) {
         <StyledInput type="number" min="20" max="100" name="age" placeholder="Enter your age" value={age} onChange={handleAgeChange}></StyledInput>
         <StyledInput type="text" name="location" placeholder="Enter doctor's location" value={location} onChange={handleLocationChange}></StyledInput>
         <StyledInput type="text" name="image" placeholder="Enter image link" value={image} onChange={handleImageChange}></StyledInput>
+        <StyledInput type="text" name="phone" placeholder="Enter doctor's phone number" value={phoneNumber} onChange={handlePhoneNumberChange}></StyledInput>
+        <StyledInput type="text" name="email" placeholder="Enter doctor's email" value={email} onChange={handleEmailChange}></StyledInput>
         <StyledSelect name="specialization" value={specializationId} onChange={handleSpecizalizationChange}>
           <option value="" style={{"color":"red"}}>Select specialization</option>
           {specializations.map(spec=>

@@ -70,7 +70,32 @@ export default function ReviewSection({ reviews, doctorData, user, handleDeleteR
                 <Typography variant="body1" color="text.secondary" sx={{ fontWeight: "bold" }}>
                   {review.sender}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" 
+                sx={{
+                  maxWidth: '1100px',
+                  '@media (max-width: 1308px)': {
+                    maxWidth: '950px',
+                  },
+                  '@media (max-width: 1156px)': {
+                    maxWidth: '800px',
+                  },
+                  '@media (max-width: 1000px)': {
+                    maxWidth: '700px',
+                  },
+                  '@media (max-width: 876px)': {
+                    maxWidth: '600px',
+                  },
+                  '@media (max-width: 768px)': {
+                    maxWidth: '460px',
+                  },
+                  '@media (max-width: 608px)': {
+                    maxWidth: '440px',
+                  },
+                  '@media (max-width: 573px)': {
+                    maxWidth: '360px',
+                  },
+                  overflowWrap: 'break-word'}} 
+                >
                   {review.reviewMessage}
                 </Typography>
               </Box>

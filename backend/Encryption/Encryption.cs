@@ -66,7 +66,7 @@ public static class Encryption{
             return builder.ToString();
         }
     }
-    public static bool VerifyPassword(string enteredPassword, string storedHash, string storedSalt)
+    public static bool VerifyPassword(string enteredPassword, string storedHash, string? storedSalt)
     {
         // Combine the stored salt and the entered password
         string saltedPassword = storedSalt + enteredPassword;
@@ -87,6 +87,28 @@ public static class Encryption{
             return builder.ToString() == storedHash;
         }
     }    
+
+    public static string HashWithKnownSalt(string enteredPassword, string storedSalt)
+    {
+        // Combine the stored salt and the entered password
+        string saltedPassword = storedSalt + enteredPassword;
+    
+        // Hash the salted password
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(saltedPassword));
+    
+            // Convert the hash to a hexadecimal string
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+    
+            // Compare the generated hash with the stored hash
+            return builder.ToString();
+        }
+    }   
 
     public static string GenerateJwtToken(UserEntity user)
     {

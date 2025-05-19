@@ -51,8 +51,11 @@ public static class DoctorsEndpoints
                 Clinic = clinic,
                 Description = newDoctor.Description,
                 Rating = 0,
-                numOfReviews = 0
+                numOfReviews = 0,
+                PhoneNumber = newDoctor.PhoneNumber,
+                Email = newDoctor.Email
             };
+
             dbContext.Doctors.Add(doctor);
 
             dbContext.SaveChanges();
@@ -90,27 +93,36 @@ public static class DoctorsEndpoints
             existingDoctor.Specialization = updatedEntity.Specialization;
             existingDoctor.Clinic = updatedEntity.Clinic;
             existingDoctor.Description = updatedDoctor.Description;
+            existingDoctor.PhoneNumber = updatedDoctor.PhoneNumber;
+            existingDoctor.Email = updatedDoctor.Email;
 
             dbContext.SaveChanges();
 
             return Results.NoContent();
         }).WithParameterValidation();
 
-        group.MapDelete("/{id}", [Authorize(Roles = "clinic")](int id,HttpContext httpContext, DoctorFinderContext dbContext) => {
+        group.MapDelete("/{id}", [Authorize(Roles = "clinic")](int id, HttpContext httpContext, DoctorFinderContext dbContext) => {
             var username = httpContext.User.Identity?.Name;
 
             DoctorEntity? doctor = dbContext.Doctors.Include(d => d.Clinic).FirstOrDefault(d => d.Id == id);            
 
             if (doctor == null)
             {
-                return Results.NotFound("Doctor not found.");
+            return Results.NotFound("Doctor not found.");
             }
 
-            if(doctor.Clinic.Name != username){
-                return Results.BadRequest("Could not delete doctor");
-            }            
+            if (doctor.Clinic.Name != username)
+            {
+            return Results.BadRequest("Could not delete doctor");
+            }
 
-            dbContext.Doctors.Where(doctor => doctor.Id == id).ExecuteDelete();
+            var reviewsToDelete = dbContext.Reviews.Where(review => review.ReceiverId == doctor.Id);
+            
+            dbContext.Reviews.RemoveRange(reviewsToDelete);
+            dbContext.Doctors.Remove(doctor);
+
+            dbContext.SaveChanges();
+
             return Results.NoContent();
         });
 

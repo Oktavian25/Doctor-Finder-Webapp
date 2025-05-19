@@ -25,16 +25,14 @@ public static class UsersEndpoints
         
         group.MapPut("/{id}", [Authorize](int id, UserDto modifiedUser, DoctorFinderContext dbContext) =>
         {
-            // Retrieve the user based on id
             var user = dbContext.Users.FirstOrDefault(user => user.Id == id);
+            var imageUrl = user?.ImageUrl;
 
-            // If user is not found, return NotFound response
             if (user == null)
             {
                 return Results.NotFound("User not found.");
             }
 
-            // If the email and name is the same as before, return BadRequest
             if (user.Email == modifiedUser.Email && user.Username == modifiedUser.Username && user.ImageUrl == modifiedUser.ImageUrl)
             {
                 return Results.BadRequest("Data cannot be the same");
@@ -43,16 +41,24 @@ public static class UsersEndpoints
             if(user.ImageUrl != modifiedUser.ImageUrl){
                 user.ImageUrl = modifiedUser.ImageUrl;
             }
+            
             if(user.Email != modifiedUser.Email){
                 user.Email = modifiedUser.Email;
             }
+
             if(user.Username != modifiedUser.Username){
                 user.Username = modifiedUser.Username;
             }
+
+            var hashedPassword = Encryption.HashWithKnownSalt(modifiedUser.Password,user.Salt!);
+            if(user.Password != hashedPassword){
+                user.Password = hashedPassword;
+            }
+            
+            user.ImageUrl = imageUrl;
             
             
             dbContext.SaveChanges();
-            // Return success response
             return Results.Ok("User updated successfully.");
         }).WithParameterValidation();
 
@@ -120,12 +126,13 @@ public static class UsersEndpoints
                 return Results.BadRequest("Invalid email or password.");
             }
 
-            bool isPasswordValid = Encryption.VerifyPassword(loginDto.Password, user.Password!, user.Salt!);
+            bool isPasswordValid = Encryption.VerifyPassword(loginDto.Password, user.Password!, user.Salt);
 
             if (!isPasswordValid)
             {
                 return Results.BadRequest("Invalid email or password.");
             }
+
             // Generate JWT token
             var token = Encryption.GenerateJwtToken(user);
             return Results.Ok(new { message = "Login successful", token, user.Id, user.Username, user.Role, user.ImageUrl});

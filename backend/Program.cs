@@ -13,6 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
 
 // JWT Authentication
+
+
 var secretKey = "thisisaverylongandsecurekeythatmeetsrequirements";
 var key = Encoding.ASCII.GetBytes(secretKey);
 

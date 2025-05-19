@@ -16,7 +16,9 @@ public record templateDoctorDto(
     [Required]string Clinic,
     [Required]string Description,
     [Required][Range(1,5)]int Rating,
-    [Required]int numOfReviews
+    [Required]int numOfReviews,
+    [Required]string PhoneNumber,
+    [Required]string Email
 );
 public record CreateDoctorDto(
     [Required][StringLength(40)]string Name, 
@@ -27,7 +29,9 @@ public record CreateDoctorDto(
     [Required]int ClinicId,
     [Required]string Description,
     [Required][Range(1,5)]int Rating,
-    [Required]int numOfReviews
+    [Required]int numOfReviews,
+    [Required]string PhoneNumber,
+    [Required]string Email
 );
 public record UpdateDoctorDto(
     [StringLength(40)]string Name, 
@@ -38,7 +42,9 @@ public record UpdateDoctorDto(
     int ClinicId,
     string Description,
     int Rating,
-    int numOfReviews
+    int numOfReviews,
+    string PhoneNumber,
+    string Email
 );
 public record DoctorDto(
     int Id,
@@ -50,7 +56,9 @@ public record DoctorDto(
     ClinicDto Clinic,
     [Required]string Description,
     [Required][Range(1,5)]int Rating,
-    [Required]int numOfReviews
+    [Required]int numOfReviews,
+    [Required]string PhoneNumber,
+    [Required]string Email
 );
 
 public record UserDto(

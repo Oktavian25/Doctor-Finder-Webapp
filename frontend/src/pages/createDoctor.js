@@ -45,7 +45,11 @@ export async function action({request}){
         location: data.get('location'),
         specializationId:data.get('specialization'),
         clinicId:data.get('clinic'),
-        description:data.get('description')
+        description:data.get('description'),
+        rating:1,
+        numOfReviews:0,
+        phoneNumber:data.get('phone'),
+        email:data.get('email')
     }
 
     if(userdata !== null) token = userdata.token;
